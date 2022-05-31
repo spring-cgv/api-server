@@ -1,5 +1,6 @@
 package com.cgv.service.impl;
 
+import com.cgv.domain.Role;
 import com.cgv.domain.dto.UserDto;
 import com.cgv.domain.entity.User;
 import com.cgv.repository.UserRepository;
@@ -20,6 +21,10 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .username(userDto.getUsername())
                 .pwd(passwordEncoder.encode(userDto.getPwd()))
+                .name(userDto.getName())
+                .birth(userDto.getBirth())
+                .gender(userDto.getGender())
+                .role(Role.ROLE_USER)
                 .build();
         userRepository.save(user);
     }

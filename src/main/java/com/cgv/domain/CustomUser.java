@@ -10,6 +10,6 @@ import java.util.Collections;
 public class CustomUser extends org.springframework.security.core.userdetails.User {
     public CustomUser(User user) {
         super(user.getUsername(), user.getPwd(),
-                Collections.unmodifiableList(AuthorityUtils.createAuthorityList("ROLE_USER")));
+                Collections.unmodifiableList(AuthorityUtils.createAuthorityList(user.getRole().name())));
     }
 }
