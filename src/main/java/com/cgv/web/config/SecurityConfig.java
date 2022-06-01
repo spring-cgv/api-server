@@ -47,6 +47,11 @@ public class SecurityConfig {
         http
                 .httpBasic();
 
+        http
+                .headers()
+                .frameOptions()
+                .sameOrigin();
+
         return http.build();
     }
 
