@@ -28,4 +28,7 @@ public class Ticket extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
+
+    @Column(nullable = false)
+    private Integer totalPrice;
 }
