@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "tickets")
-public class Ticket {
+public class Ticket extends BaseTimeEntity {
     @Id
     @Column(name = "ticket_id")
     @GeneratedValue

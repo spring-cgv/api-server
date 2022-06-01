@@ -26,6 +26,7 @@ public class Movie {
     @Column(nullable = false)
     private String title;
 
+    @Column(length = 1000)
     private String synopsis;
 
     @Column(nullable = false)

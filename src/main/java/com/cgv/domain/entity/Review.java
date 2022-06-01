@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "reviews")
-public class Review {
+public class Review extends BaseTimeEntity {
     @Id
     @Column(name = "review_id")
     @GeneratedValue
@@ -32,6 +32,6 @@ public class Review {
     @Column(nullable = false)
     private Integer star;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String comment;
 }
