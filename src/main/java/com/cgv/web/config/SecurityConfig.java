@@ -19,6 +19,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     private final JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordAuthenticationFilter;
 
+    private static final String[] GET_PERMIT_ALL_MATCHERS = { "/movies/*", "/movies/*/tickets/distribution" };
+    private static final String[] POST_PERMIT_ALL_MATCHERS = { "/users" };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -26,9 +29,8 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/users").permitAll()
-                .antMatchers(HttpMethod.GET, "/movies/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/movies/*/tickets/distribution").permitAll()
+                .antMatchers(HttpMethod.GET, GET_PERMIT_ALL_MATCHERS).permitAll()
+                .antMatchers(HttpMethod.POST, POST_PERMIT_ALL_MATCHERS).permitAll()
                 .anyRequest().authenticated();
 
         http
