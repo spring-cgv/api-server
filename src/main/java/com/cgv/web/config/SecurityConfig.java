@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/movies/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/movies/*/tickets/distribution").permitAll()
                 .anyRequest().authenticated();
 
         http
