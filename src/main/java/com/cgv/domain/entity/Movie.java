@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public class Movie {
     @Id
     @Column(name = "movie_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)

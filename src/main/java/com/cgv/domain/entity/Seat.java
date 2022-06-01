@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Seat {
     @Id
     @Column(name = "seat_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

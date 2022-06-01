@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Ticket extends BaseTimeEntity {
     @Id
     @Column(name = "ticket_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

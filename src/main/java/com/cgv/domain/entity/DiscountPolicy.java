@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class DiscountPolicy {
     @Id
     @Column(name = "discount_policy_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
