@@ -1,14 +1,13 @@
 package com.cgv.web.controller;
 
 import com.cgv.domain.dto.DiscountPolicyDto;
+import com.cgv.domain.dto.ValidationGroup;
 import com.cgv.service.DiscountPolicyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.NoSuchElementException;
@@ -25,6 +24,18 @@ public class DiscountPolicyController {
         try {
             discountPolicyService.saveDiscountPolicy(discountPolicyDto);
             return new ResponseEntity(HttpStatus.CREATED);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity editDiscountPolicy(@PathVariable("id") Long discountPolicyId,
+                                             @RequestBody @Validated(ValidationGroup.WithoutSchedule.class) DiscountPolicyDto discountPolicyDto) {
+
+        try {
+            discountPolicyService.editDiscountPolicy(discountPolicyId, discountPolicyDto);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

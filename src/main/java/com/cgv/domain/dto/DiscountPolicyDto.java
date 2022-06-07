@@ -10,9 +10,9 @@ public class DiscountPolicyDto {
     @NotNull
     private Long scheduleId;
 
-    @NotNull
+    @NotNull(groups = ValidationGroup.WithoutSchedule.class)
     private DiscountType type;
 
-    @NotNull
+    @NotNull(groups = ValidationGroup.WithoutSchedule.class)
     private Integer value;
 }

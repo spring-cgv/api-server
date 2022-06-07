@@ -31,4 +31,15 @@ public class DiscountPolicyServiceImpl implements DiscountPolicyService {
 
         discountPolicyRepository.save(discountPolicy);
     }
+
+    @Override
+    public void editDiscountPolicy(Long discountPolicyId, DiscountPolicyDto discountPolicyDto) {
+        DiscountPolicy discountPolicy = discountPolicyRepository.findById(discountPolicyId)
+                .orElseThrow(NoSuchElementException::new);
+
+        discountPolicy.setType(discountPolicyDto.getType());
+        discountPolicy.setValue(discountPolicyDto.getValue());
+
+        discountPolicyRepository.save(discountPolicy);
+    }
 }
