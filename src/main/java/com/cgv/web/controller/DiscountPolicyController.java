@@ -6,6 +6,7 @@ import com.cgv.service.DiscountPolicyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class DiscountPolicyController {
         webDataBinder.addValidators(discountPolicyValidator);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity saveDiscountPolicy(@RequestBody @Validated(ValidationGroup.WithId.class) DiscountPolicyDto discountPolicyDto) {
         try {
@@ -38,6 +40,7 @@ public class DiscountPolicyController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity editDiscountPolicy(@PathVariable("id") Long discountPolicyId,
                                              @RequestBody @Validated DiscountPolicyDto discountPolicyDto) {
