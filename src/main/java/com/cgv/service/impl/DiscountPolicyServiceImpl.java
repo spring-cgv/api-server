@@ -9,6 +9,7 @@ import com.cgv.service.DiscountPolicyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -19,9 +20,13 @@ public class DiscountPolicyServiceImpl implements DiscountPolicyService {
     private final ScheduleRepository scheduleRepository;
 
     @Override
-    public void saveDiscountPolicy(DiscountPolicyDto discountPolicyDto) {
+    public void saveDiscountPolicy(DiscountPolicyDto discountPolicyDto) throws InstanceAlreadyExistsException {
         Schedule schedule = scheduleRepository.findById(discountPolicyDto.getScheduleId())
                 .orElseThrow(NoSuchElementException::new);
+
+        if (schedule.getDiscountPolicy() != null) {
+            throw new InstanceAlreadyExistsException();
+        }
 
         DiscountPolicy discountPolicy = DiscountPolicy.builder()
                 .schedule(schedule)

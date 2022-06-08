@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
@@ -24,6 +25,8 @@ public class DiscountPolicyController {
         try {
             discountPolicyService.saveDiscountPolicy(discountPolicyDto);
             return new ResponseEntity(HttpStatus.CREATED);
+        } catch (InstanceAlreadyExistsException e) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

@@ -32,4 +32,7 @@ public class Schedule {
 
     @Column(nullable = false)
     private LocalDateTime startDateTime;
+
+    @OneToOne(mappedBy = "schedule", fetch = FetchType.LAZY)
+    private DiscountPolicy discountPolicy;
 }
