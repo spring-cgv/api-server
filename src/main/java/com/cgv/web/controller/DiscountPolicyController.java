@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
-import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -19,9 +19,15 @@ import java.util.NoSuchElementException;
 public class DiscountPolicyController {
 
     private final DiscountPolicyService discountPolicyService;
+    private final DiscountPolicyValidator discountPolicyValidator;
+
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(discountPolicyValidator);
+    }
 
     @PostMapping("")
-    public ResponseEntity saveDiscountPolicy(@RequestBody @Valid DiscountPolicyDto discountPolicyDto) {
+    public ResponseEntity saveDiscountPolicy(@RequestBody @Validated(ValidationGroup.WithId.class) DiscountPolicyDto discountPolicyDto) {
         try {
             discountPolicyService.saveDiscountPolicy(discountPolicyDto);
             return new ResponseEntity(HttpStatus.CREATED);
@@ -34,7 +40,7 @@ public class DiscountPolicyController {
 
     @PatchMapping("/{id}")
     public ResponseEntity editDiscountPolicy(@PathVariable("id") Long discountPolicyId,
-                                             @RequestBody @Validated(ValidationGroup.WithoutSchedule.class) DiscountPolicyDto discountPolicyDto) {
+                                             @RequestBody @Validated DiscountPolicyDto discountPolicyDto) {
 
         try {
             discountPolicyService.editDiscountPolicy(discountPolicyId, discountPolicyDto);

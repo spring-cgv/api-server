@@ -1,5 +1,7 @@
 package com.cgv.domain.dto;
 
+import javax.validation.groups.Default;
+
 public interface ValidationGroup {
-    interface WithoutSchedule {}
+    interface WithId extends Default {}
 }

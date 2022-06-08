@@ -7,12 +7,12 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 public class DiscountPolicyDto {
-    @NotNull
+    @NotNull(groups = ValidationGroup.WithId.class)
     private Long scheduleId;
 
-    @NotNull(groups = ValidationGroup.WithoutSchedule.class)
+    @NotNull
     private DiscountType type;
 
-    @NotNull(groups = ValidationGroup.WithoutSchedule.class)
+    @NotNull
     private Integer value;
 }
