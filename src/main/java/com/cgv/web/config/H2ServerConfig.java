@@ -10,6 +10,6 @@ import java.sql.SQLException;
 public class H2ServerConfig {
     @Bean(initMethod = "start", destroyMethod = "stop")
     public Server H2DatabaseServer() throws SQLException {
-        return Server.createTcpServer();
+        return Server.createTcpServer("-tcpAllowOthers");
     }
 }
