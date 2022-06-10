@@ -10,4 +10,6 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query("SELECT t.user FROM Ticket t JOIN t.schedule s WHERE s.movie.id = :movieId")
     List<User> findTicketedUsersByMovieId(Long movieId);
+
+    List<Ticket> findByUserUsername(String username);
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -31,4 +32,7 @@ public class Ticket extends BaseTimeEntity {
 
     @Column(nullable = false)
     private Integer totalPrice;
+
+    @OneToMany(mappedBy = "ticket")
+    private List<TicketSeat> ticketSeats;
 }
