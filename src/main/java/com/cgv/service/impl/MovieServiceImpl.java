@@ -27,8 +27,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDto findById(Long movieId) {
-        return movieRepository.findById(movieId)
-                .map(MovieDto::new)
+        return movieRepository.findDtoById(movieId)
                 .orElseThrow(EntityNotFoundException::new);
     }
 

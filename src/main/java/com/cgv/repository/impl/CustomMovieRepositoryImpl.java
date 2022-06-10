@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
@@ -33,6 +34,24 @@ public class CustomMovieRepositoryImpl implements CustomMovieRepository {
 
     @Override
     public List<MovieDto> findMovies(String titleKey, String actorKey, Pageable pageable) {
+        return selectMovieDtoFromMovie()
+                .where(hasTitleLike(titleKey),
+                        hasActorLike(actorKey))
+                .orderBy(QuerydslUtil.ordersFromPageable(pageable.getSort()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    @Override
+    public Optional<MovieDto> findDtoById(Long movieId) {
+        MovieDto movieDto = selectMovieDtoFromMovie()
+                .where(qMovie.id.eq(movieId))
+                .fetchOne();
+        return Optional.of(movieDto);
+    }
+
+    private JPQLQuery<MovieDto> selectMovieDtoFromMovie() {
         return queryFactory.select(Projections.fields(MovieDto.class,
                         qMovie.title,
                         qMovie.synopsis,
@@ -45,13 +64,7 @@ public class CustomMovieRepositoryImpl implements CustomMovieRepository {
                         qMovie.genre,
                         ExpressionUtils.as(getReviewStarAvg(), reviewStarAvgPath),
                         ExpressionUtils.as(getTicketRatio(), ticketRatioPath)))
-                .from(qMovie)
-                .where(hasTitleLike(titleKey),
-                        hasActorLike(actorKey))
-                .orderBy(QuerydslUtil.ordersFromPageable(pageable.getSort()))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+                .from(qMovie);
     }
 
     private BooleanExpression hasTitleLike(String key) {
