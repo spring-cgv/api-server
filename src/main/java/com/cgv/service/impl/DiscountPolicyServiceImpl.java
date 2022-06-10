@@ -47,4 +47,12 @@ public class DiscountPolicyServiceImpl implements DiscountPolicyService {
 
         discountPolicyRepository.save(discountPolicy);
     }
+
+    @Override
+    public DiscountPolicyDto findByScheduleId(Long scheduleId) {
+        return discountPolicyRepository
+                .findByScheduleId(scheduleId)
+                .map(DiscountPolicyDto::new)
+                .orElse(null);
+    }
 }
