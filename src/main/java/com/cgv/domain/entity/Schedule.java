@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -35,4 +36,7 @@ public class Schedule {
 
     @OneToOne(mappedBy = "schedule", fetch = FetchType.LAZY)
     private DiscountPolicy discountPolicy;
+
+    @OneToMany(mappedBy = "schedule")
+    private List<Ticket> tickets;
 }
