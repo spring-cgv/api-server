@@ -3,10 +3,12 @@ package com.cgv.domain.dto;
 import com.cgv.domain.Rating;
 import com.cgv.domain.entity.Movie;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
+@NoArgsConstructor
 public class MovieDto {
     private String title;
     private String synopsis;
@@ -17,6 +19,8 @@ public class MovieDto {
     private String director;
     private String actor;
     private String genre;
+    private Double reviewStarAvg;
+    private Double ticketRatio;
 
     public MovieDto(Movie movie) {
         this.title = movie.getTitle();

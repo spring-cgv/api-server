@@ -4,14 +4,13 @@ import com.cgv.domain.dto.MovieDto;
 import com.cgv.domain.dto.TicketDistributionDto;
 import com.cgv.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,6 +18,14 @@ import javax.persistence.EntityNotFoundException;
 public class MovieController {
 
     private final MovieService movieService;
+
+    @GetMapping("")
+    public List<MovieDto> getMoviesOnCondition(@RequestParam(required = false) String titleKey,
+                                               @RequestParam(required = false) String actorKey,
+                                               Pageable pageable) {
+
+        return movieService.findMoviesOnCondition(titleKey, actorKey, pageable);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity getMovie(@PathVariable("id") Long movieId) {

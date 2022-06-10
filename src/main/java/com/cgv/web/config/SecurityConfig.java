@@ -21,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     private final JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordAuthenticationFilter;
 
-    private static final String[] GET_PERMIT_ALL_MATCHERS = { "/movies/*", "/movies/*/tickets/distribution" };
+    private static final String[] GET_PERMIT_ALL_MATCHERS = { "/movies", "/movies/*", "/movies/*/tickets/distribution" };
     private static final String[] POST_PERMIT_ALL_MATCHERS = { "/users" };
 
     @Bean

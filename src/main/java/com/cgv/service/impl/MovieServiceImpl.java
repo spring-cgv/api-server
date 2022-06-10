@@ -9,6 +9,7 @@ import com.cgv.repository.TicketRepository;
 import com.cgv.service.MovieService;
 import com.cgv.util.DateUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -52,5 +53,10 @@ public class MovieServiceImpl implements MovieService {
                         Collectors.counting()));
 
         return new TicketDistributionDto(users.size(), genderCount, ageGroupCount);
+    }
+
+    @Override
+    public List<MovieDto> findMoviesOnCondition(String titleKey, String actorKey, Pageable pageable) {
+        return movieRepository.findMovies(titleKey, actorKey, pageable);
     }
 }
