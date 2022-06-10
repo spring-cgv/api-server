@@ -3,14 +3,18 @@ package com.cgv.web.controller;
 import com.cgv.domain.dto.MovieDto;
 import com.cgv.domain.dto.TicketDistributionDto;
 import com.cgv.service.MovieService;
+import com.cgv.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,6 +22,7 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+    private final ScheduleService scheduleService;
 
     @GetMapping("")
     public List<MovieDto> getMoviesOnCondition(@RequestParam(required = false) String titleKey,
@@ -45,5 +50,17 @@ public class MovieController {
         } catch (EntityNotFoundException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{id}/schedules")
+    public List<Map<String, Object>> getSchedules(
+            @PathVariable("id") Long movieId,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate screenDate) {
+
+        if (screenDate == null) {
+            screenDate = LocalDate.now().plusDays(1);
+        }
+
+        return scheduleService.findSchedulesByMovieIdOnDate(movieId, screenDate);
     }
 }

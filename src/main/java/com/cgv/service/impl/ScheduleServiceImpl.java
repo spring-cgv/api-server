@@ -20,6 +20,16 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<Map<String, Object>> findSchedulesOnDate(LocalDate screenDate) {
         List<Schedule> schedules = scheduleRepository.findByScreenDate(screenDate);
+        return createListFromSchedules(schedules);
+    }
+
+    @Override
+    public List<Map<String, Object>> findSchedulesByMovieIdOnDate(Long movieId, LocalDate screenDate) {
+        List<Schedule> schedules = scheduleRepository.findByMovieIdAndScreenDate(movieId, screenDate);
+        return createListFromSchedules(schedules);
+    }
+
+    public List<Map<String, Object>> createListFromSchedules(List<Schedule> schedules) {
         List<Map<String, Object>> scheduleInfos = new ArrayList();
         schedules.stream()
                 .forEach(schedule -> addSchedule(scheduleInfos, schedule));

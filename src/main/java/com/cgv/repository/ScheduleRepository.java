@@ -10,4 +10,7 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     @Query("SELECT s FROM Schedule s WHERE FORMATDATETIME(s.startDateTime, 'yyyy-MM-dd') = :screenDate")
     List<Schedule> findByScreenDate(LocalDate screenDate);
+
+    @Query("SELECT s FROM Schedule s WHERE s.movie.id = :movieId AND FORMATDATETIME(s.startDateTime, 'yyyy-MM-dd') = :screenDate")
+    List<Schedule> findByMovieIdAndScreenDate(Long movieId, LocalDate screenDate);
 }

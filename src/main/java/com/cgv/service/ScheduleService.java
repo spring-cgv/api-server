@@ -6,4 +6,6 @@ import java.util.Map;
 
 public interface ScheduleService {
     List<Map<String, Object>> findSchedulesOnDate(LocalDate screenDate);
+
+    List<Map<String, Object>> findSchedulesByMovieIdOnDate(Long movieId, LocalDate screenDate);
 }
