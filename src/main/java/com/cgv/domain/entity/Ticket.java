@@ -33,6 +33,6 @@ public class Ticket extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer totalPrice;
 
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.PERSIST)
     private List<TicketSeat> ticketSeats;
 }
