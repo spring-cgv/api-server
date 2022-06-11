@@ -27,6 +27,7 @@ public class SecurityConfig {
             "/movies/*/tickets/distribution",
             "/movies/*/schedules",
             "/schedules",
+            "/schedules/*/seats",
             "/schedules/*/discount-policies"
     };
     private static final String[] POST_PERMIT_ALL_MATCHERS = { "/users" };

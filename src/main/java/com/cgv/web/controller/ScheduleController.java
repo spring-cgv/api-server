@@ -1,6 +1,7 @@
 package com.cgv.web.controller;
 
 import com.cgv.domain.dto.DiscountPolicyDto;
+import com.cgv.domain.dto.SeatDto;
 import com.cgv.service.DiscountPolicyService;
 import com.cgv.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,16 @@ public class ScheduleController {
         try {
             DiscountPolicyDto discountPolicyDto = discountPolicyService.findByScheduleId(scheduleId);
             return new ResponseEntity(discountPolicyDto, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}/seats")
+    public ResponseEntity getSeatInfos(@PathVariable("id") Long scheduleId) {
+        try {
+            List<SeatDto> seatDtos = scheduleService.getSeatInfosByScheduleId(scheduleId);
+            return new ResponseEntity(seatDtos, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
