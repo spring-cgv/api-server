@@ -15,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @RestController
@@ -53,7 +54,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}/schedules")
-    public List<Map<String, Object>> getSchedules(
+    public ResponseEntity getSchedules(
             @PathVariable("id") Long movieId,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate screenDate) {
 
@@ -61,6 +62,11 @@ public class MovieController {
             screenDate = LocalDate.now().plusDays(1);
         }
 
-        return scheduleService.findSchedulesByMovieIdOnDate(movieId, screenDate);
+        try {
+            List<Map<String, Object>> scheduleInfos = scheduleService.findSchedulesByMovieIdOnDate(movieId, screenDate);
+            return new ResponseEntity(scheduleInfos, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 }

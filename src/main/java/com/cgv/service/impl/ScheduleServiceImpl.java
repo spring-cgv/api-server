@@ -4,6 +4,7 @@ import com.cgv.domain.dto.SeatDto;
 import com.cgv.domain.entity.Movie;
 import com.cgv.domain.entity.Schedule;
 import com.cgv.domain.entity.Screen;
+import com.cgv.repository.MovieRepository;
 import com.cgv.repository.ScheduleRepository;
 import com.cgv.repository.SeatRepository;
 import com.cgv.service.ScheduleService;
@@ -19,6 +20,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
     private final SeatRepository seatRepository;
+    private final MovieRepository movieRepository;
 
     @Override
     public List<Map<String, Object>> findSchedulesOnDate(LocalDate screenDate) {
@@ -28,6 +30,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<Map<String, Object>> findSchedulesByMovieIdOnDate(Long movieId, LocalDate screenDate) {
+        if (!movieRepository.existsById(movieId))
+            throw new NoSuchElementException();
+
         List<Schedule> schedules = scheduleRepository.findByMovieIdAndScreenDate(movieId, screenDate);
         return createListFromSchedules(schedules);
     }
