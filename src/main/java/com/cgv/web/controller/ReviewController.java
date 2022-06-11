@@ -2,6 +2,7 @@ package com.cgv.web.controller;
 
 import com.cgv.domain.CustomUser;
 import com.cgv.domain.dto.ReviewDto;
+import com.cgv.domain.dto.ValidationGroup;
 import com.cgv.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +32,7 @@ public class ReviewController {
     }
 
     @PostMapping("")
-    public ResponseEntity saveReview(@RequestBody @Validated ReviewDto reviewDto,
+    public ResponseEntity saveReview(@RequestBody @Validated(ValidationGroup.WithId.class) ReviewDto reviewDto,
                                      @AuthenticationPrincipal CustomUser customUser) {
 
         try {
@@ -39,6 +40,21 @@ public class ReviewController {
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity editReview(@PathVariable("id") Long reviewId,
+                                     @RequestBody @Validated ReviewDto reviewDto,
+                                     @AuthenticationPrincipal CustomUser customUser) {
+
+        try {
+            reviewService.editReview(reviewId, reviewDto, customUser.getUsername());
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        } catch (AccessDeniedException e) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
 

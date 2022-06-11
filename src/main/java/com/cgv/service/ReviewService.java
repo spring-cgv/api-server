@@ -12,4 +12,6 @@ public interface ReviewService {
     void saveReview(ReviewDto reviewDto, String username);
 
     void removeReview(Long reviewId, String username);
+
+    void editReview(Long reviewId, ReviewDto reviewDto, String username);
 }

@@ -14,7 +14,7 @@ public class ReviewDto {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull
+    @NotNull(groups = ValidationGroup.WithId.class)
     private Long movieId;
 
     private Boolean isWriter;

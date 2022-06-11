@@ -55,4 +55,16 @@ public class ReviewServiceImpl implements ReviewService {
 
         reviewRepository.delete(review);
     }
+
+    @Override
+    public void editReview(Long reviewId, ReviewDto reviewDto, String username) {
+        Review review = reviewRepository.findById(reviewId).get();
+
+        if (!review.getUser().getUsername().equals(username))
+            throw new AccessDeniedException("Access to this review is denied.");
+
+        review.setStar(reviewDto.getStar());
+        review.setComment(reviewDto.getComment());
+        reviewRepository.save(review);
+    }
 }
