@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -34,4 +35,7 @@ public class Review extends BaseTimeEntity {
 
     @Column(nullable = false, length = 500)
     private String comment;
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE)
+    private List<Like> likes;
 }
