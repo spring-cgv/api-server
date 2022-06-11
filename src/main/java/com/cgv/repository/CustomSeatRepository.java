@@ -5,5 +5,5 @@ import com.cgv.domain.dto.SeatDto;
 import java.util.List;
 
 public interface CustomSeatRepository {
-    List<SeatDto> findDtosByScreenId(Long screenId);
+    List<SeatDto> findDtosBySchedule(Long scheduleId, Long screenId);
 }

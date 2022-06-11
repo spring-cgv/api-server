@@ -35,7 +35,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<SeatDto> getSeatInfosByScheduleId(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).get();
-        return seatRepository.findDtosByScreenId(schedule.getScreen().getId());
+        return seatRepository.findDtosBySchedule(scheduleId, schedule.getScreen().getId());
     }
 
     public List<Map<String, Object>> createListFromSchedules(List<Schedule> schedules) {

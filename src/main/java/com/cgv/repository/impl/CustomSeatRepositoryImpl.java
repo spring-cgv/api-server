@@ -2,8 +2,8 @@ package com.cgv.repository.impl;
 
 import com.cgv.domain.dto.SeatDto;
 import com.cgv.domain.entity.QSeat;
+import com.cgv.domain.entity.QTicket;
 import com.cgv.domain.entity.QTicketSeat;
-import com.cgv.domain.entity.Seat;
 import com.cgv.repository.CustomSeatRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
@@ -20,26 +20,27 @@ public class CustomSeatRepositoryImpl implements CustomSeatRepository {
 
     private final JPAQueryFactory queryFactory;
     private final QSeat qSeat = QSeat.seat;
+    private final QTicket qTicket = QTicket.ticket;
     private final QTicketSeat qTicketSeat = QTicketSeat.ticketSeat;
 
     @Override
-    public List<SeatDto> findDtosByScreenId(Long screenId) {
+    public List<SeatDto> findDtosBySchedule(Long scheduleId, Long screenId) {
         return queryFactory.select(
                 Projections.fields(
                         SeatDto.class,
                         qSeat.id,
                         qSeat.column,
                         qSeat.number,
-                        qSeat.notIn(unAvailableSeats(screenId)).as("isAvailable")))
+                        qSeat.id.notIn(unAvailableSeats(scheduleId)).as("isAvailable")))
                 .from(qSeat)
                 .where(qSeat.screen.id.eq(screenId))
                 .fetch();
     }
 
-    public JPQLQuery<Seat> unAvailableSeats(Long screenId) {
-        return JPAExpressions.select(qSeat)
+    public JPQLQuery<Long> unAvailableSeats(Long scheduleId) {
+        return JPAExpressions.select(qTicketSeat.seat.id)
                 .from(qTicketSeat)
-                .join(qTicketSeat.seat, qSeat)
-                .where(qSeat.screen.id.eq(screenId));
+                .join(qTicketSeat.ticket, qTicket)
+                .where(qTicket.schedule.id.eq(scheduleId));
     }
 }
