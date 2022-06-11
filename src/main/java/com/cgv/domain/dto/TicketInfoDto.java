@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class TicketDto {
+public class TicketInfoDto {
     private Long id;
     private LocalDateTime startDateTime;
     private Integer movieRunningTime;
@@ -16,7 +16,7 @@ public class TicketDto {
     private String screenName;
     private List<String> seats;
 
-    public TicketDto(Ticket ticket) {
+    public TicketInfoDto(Ticket ticket) {
         this.id = ticket.getId();
         this.startDateTime = ticket.getSchedule().getStartDateTime();
         this.movieRunningTime = ticket.getSchedule().getMovie().getRunningTime();

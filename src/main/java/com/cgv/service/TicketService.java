@@ -1,9 +1,9 @@
 package com.cgv.service;
 
-import com.cgv.domain.dto.TicketDto;
+import com.cgv.domain.dto.TicketInfoDto;
 
 import java.util.List;
 
 public interface TicketService {
-    List<TicketDto> findByUsername(String username);
+    List<TicketInfoDto> findByUsername(String username);
 }

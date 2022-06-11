@@ -1,6 +1,6 @@
 package com.cgv.service.impl;
 
-import com.cgv.domain.dto.TicketDto;
+import com.cgv.domain.dto.TicketInfoDto;
 import com.cgv.repository.TicketRepository;
 import com.cgv.service.TicketService;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +16,10 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
 
     @Override
-    public List<TicketDto> findByUsername(String username) {
+    public List<TicketInfoDto> findByUsername(String username) {
         return ticketRepository.findByUserUsername(username)
                 .stream()
-                .map(TicketDto::new)
+                .map(TicketInfoDto::new)
                 .collect(Collectors.toList());
     }
 }
