@@ -53,6 +53,7 @@ public class CustomMovieRepositoryImpl implements CustomMovieRepository {
 
     private JPQLQuery<MovieDto> selectMovieDtoFromMovie() {
         return queryFactory.select(Projections.fields(MovieDto.class,
+                        qMovie.id,
                         qMovie.title,
                         qMovie.synopsis,
                         qMovie.posterUrl,

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 public class MovieDto {
+    private Long id;
     private String title;
     private String synopsis;
     private String posterUrl;
