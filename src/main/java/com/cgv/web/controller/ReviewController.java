@@ -3,8 +3,10 @@ package com.cgv.web.controller;
 import com.cgv.domain.CustomUser;
 import com.cgv.domain.dto.ReviewDto;
 import com.cgv.domain.dto.ValidationGroup;
+import com.cgv.service.LikeService;
 import com.cgv.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import java.util.NoSuchElementException;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final LikeService likeService;
 
     @GetMapping("")
     public List<ReviewDto> getReviewsByPage(@PageableDefault(size = 6) Pageable pageable,
@@ -69,6 +72,20 @@ public class ReviewController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } catch (AccessDeniedException e) {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PostMapping("/{id}/likes")
+    public ResponseEntity likeReview(@PathVariable("id") Long reviewId,
+                           @AuthenticationPrincipal CustomUser customUser) {
+
+        try {
+            likeService.insertLike(reviewId, customUser.getUsername());
+            return new ResponseEntity(HttpStatus.CREATED);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
 }
