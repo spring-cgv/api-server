@@ -12,6 +12,7 @@ import com.cgv.repository.TicketRepository;
 import com.cgv.repository.UserRepository;
 import com.cgv.service.TicketService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +37,8 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void saveTicket(TicketDto ticketDto, String username) {
-        Schedule schedule = scheduleRepository.findById(ticketDto.getScheduleId()).get();
+        Long scheduleId = ticketDto.getScheduleId();
+        Schedule schedule = scheduleRepository.findById(scheduleId).get();
 
         List<Seat> seats = ticketDto.getSeatIds()
                 .stream()
@@ -44,12 +46,12 @@ public class TicketServiceImpl implements TicketService {
                     Seat seat = seatRepository.findById(seatId).get();
                     if (!seat.getScreen().equals(schedule.getScreen()))
                         throw new IllegalArgumentException();
+                    if (seatRepository.checkSeatIsUnAvailable(scheduleId, seat))
+                        throw new DataIntegrityViolationException("The seat(id: " + seat.getId() + ") is already ticketed.");
                     return seat;
                 })
                 .collect(Collectors.toList());
         
-        // TODO: 이미 선택한 좌석 예외
-
         Ticket ticket = Ticket.builder()
                 .user(userRepository.findByUsername(username).get())
                 .schedule(schedule)

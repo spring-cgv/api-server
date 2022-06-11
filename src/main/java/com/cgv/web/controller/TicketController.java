@@ -5,6 +5,7 @@ import com.cgv.domain.dto.TicketDto;
 import com.cgv.domain.dto.TicketInfoDto;
 import com.cgv.service.TicketService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,6 +32,8 @@ public class TicketController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
 

@@ -4,6 +4,7 @@ import com.cgv.domain.dto.SeatDto;
 import com.cgv.domain.entity.QSeat;
 import com.cgv.domain.entity.QTicket;
 import com.cgv.domain.entity.QTicketSeat;
+import com.cgv.domain.entity.Seat;
 import com.cgv.repository.CustomSeatRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
@@ -35,6 +36,14 @@ public class CustomSeatRepositoryImpl implements CustomSeatRepository {
                 .from(qSeat)
                 .where(qSeat.screen.id.eq(screenId))
                 .fetch();
+    }
+
+    @Override
+    public boolean checkSeatIsUnAvailable(Long scheduleId, Seat seat) {
+        return queryFactory.select(qSeat.id.in(unAvailableSeats(scheduleId)))
+                .from(qSeat)
+                .where(qSeat.eq(seat))
+                .fetchOne();
     }
 
     public JPQLQuery<Long> unAvailableSeats(Long scheduleId) {
