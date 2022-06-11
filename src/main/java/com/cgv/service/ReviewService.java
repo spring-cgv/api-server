@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ReviewService {
     List<ReviewDto> getReviewsByPage(Pageable pageable, CustomUser principalCustomUser);
+
+    void saveReview(ReviewDto reviewDto, String username);
 }

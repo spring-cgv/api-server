@@ -2,7 +2,9 @@ package com.cgv.service.impl;
 
 import com.cgv.domain.CustomUser;
 import com.cgv.domain.dto.ReviewDto;
+import com.cgv.domain.entity.Review;
 import com.cgv.domain.entity.User;
+import com.cgv.repository.MovieRepository;
 import com.cgv.repository.ReviewRepository;
 import com.cgv.repository.UserRepository;
 import com.cgv.service.ReviewService;
@@ -19,6 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
 
     @Override
     public List<ReviewDto> getReviewsByPage(Pageable pageable, CustomUser principalCustomUser) {
@@ -29,5 +32,16 @@ public class ReviewServiceImpl implements ReviewService {
                 .stream()
                 .map(review -> new ReviewDto(review, principalUser))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveReview(ReviewDto reviewDto, String username) {
+        Review review = Review.builder()
+                .movie(movieRepository.findById(reviewDto.getMovieId()).get())
+                .user(userRepository.findByUsername(username).get())
+                .star(reviewDto.getStar())
+                .comment(reviewDto.getComment())
+                .build();
+        reviewRepository.save(review);
     }
 }
