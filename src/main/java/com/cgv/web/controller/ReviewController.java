@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,20 @@ public class ReviewController {
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity removeReview(@PathVariable("id") Long reviewId,
+                                       @AuthenticationPrincipal CustomUser customUser) {
+
+        try {
+            reviewService.removeReview(reviewId, customUser.getUsername());
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        } catch (AccessDeniedException e) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
 }

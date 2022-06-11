@@ -10,6 +10,7 @@ import com.cgv.repository.UserRepository;
 import com.cgv.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,5 +44,15 @@ public class ReviewServiceImpl implements ReviewService {
                 .comment(reviewDto.getComment())
                 .build();
         reviewRepository.save(review);
+    }
+
+    @Override
+    public void removeReview(Long reviewId, String username) {
+        Review review = reviewRepository.findById(reviewId).get();
+
+        if (!review.getUser().getUsername().equals(username))
+            throw new AccessDeniedException("Access to this review is denied.");
+
+        reviewRepository.delete(review);
     }
 }
