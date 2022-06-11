@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -25,10 +26,21 @@ public class ReviewDto {
     @NotNull
     private String comment;
 
+    private LocalDateTime createdDateTime;
+
+    private Integer likesCount;
+
+    private Boolean isUserLiked;
+
     public ReviewDto(Review review, User principalUser) {
         this.id = review.getId();
         this.isWriter = review.getUser().equals(principalUser);
         this.star = review.getStar();
         this.comment = review.getComment();
+        this.createdDateTime = review.getCreatedDateTime();
+        this.likesCount = review.getLikes().size();
+        this.isUserLiked = review.getLikes()
+                .stream()
+                .anyMatch(like -> like.getUser().equals(principalUser));
     }
 }
