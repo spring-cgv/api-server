@@ -77,7 +77,7 @@ public class ReviewController {
 
     @PostMapping("/{id}/likes")
     public ResponseEntity likeReview(@PathVariable("id") Long reviewId,
-                           @AuthenticationPrincipal CustomUser customUser) {
+                                     @AuthenticationPrincipal CustomUser customUser) {
 
         try {
             likeService.insertLike(reviewId, customUser.getUsername());
@@ -86,6 +86,18 @@ public class ReviewController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } catch (DataIntegrityViolationException e) {
             return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+    }
+
+    @DeleteMapping("/{id}/likes")
+    public ResponseEntity unlikeReview(@PathVariable("id") Long reviewId,
+                                       @AuthenticationPrincipal CustomUser customUser) {
+
+        try {
+            likeService.deleteLike(reviewId, customUser.getUsername());
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -24,4 +24,10 @@ public class LikeServiceImpl implements LikeService {
                 .build();
         likeRepository.save(like);
     }
+
+    @Override
+    public void deleteLike(Long reviewId, String username) {
+        Like like = likeRepository.findByReviewIdAndUserUsername(reviewId, username).get();
+        likeRepository.delete(like);
+    }
 }
