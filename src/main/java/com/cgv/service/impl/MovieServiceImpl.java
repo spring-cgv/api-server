@@ -39,7 +39,7 @@ public class MovieServiceImpl implements MovieService {
 
         List<User> users = ticketRepository.findTicketedUsersByMovieId(movieId);
 
-        Map<Gender, Long> genderCount = users.stream()
+        Map<Gender, Long> genderCountMap = users.stream()
                 .collect(Collectors.groupingBy(
                         User::getGender,
                         Collectors.counting()));
@@ -56,6 +56,16 @@ public class MovieServiceImpl implements MovieService {
             ageGroupCountMap.putIfAbsent(i, 0L);
         }
 
+        List<Map<String, Object>> genderCountList = genderCountMap.entrySet()
+                .stream()
+                .map(entry -> {
+                    Map<String, Object> map = new HashMap();
+                    map.put("gender", entry.getKey());
+                    map.put("count", entry.getValue());
+                    return map;
+                })
+                .collect(Collectors.toList());
+
         List<Map<String, Object>> ageGroupCountList = ageGroupCountMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
@@ -67,7 +77,7 @@ public class MovieServiceImpl implements MovieService {
                 })
                 .collect(Collectors.toList());
 
-        return new TicketDistributionDto(users.size(), genderCount, ageGroupCountList);
+        return new TicketDistributionDto(users.size(), genderCountList, ageGroupCountList);
     }
 
     @Override
