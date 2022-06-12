@@ -64,8 +64,8 @@ public class SecurityConfig {
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT));
 
         http
-                .httpBasic()
-                .authenticationEntryPoint(new NoPopupAuthenticationEntryPoint());
+                .httpBasic();
+//                .authenticationEntryPoint(new NoPopupAuthenticationEntryPoint());
 
         http
                 .headers()
