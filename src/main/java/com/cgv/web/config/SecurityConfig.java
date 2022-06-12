@@ -1,6 +1,7 @@
 package com.cgv.web.config;
 
 import com.cgv.web.config.security.JsonUsernamePasswordAuthenticationFilter;
+import com.cgv.web.config.security.NoPopupAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,7 +64,8 @@ public class SecurityConfig {
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT));
 
         http
-                .httpBasic();
+                .httpBasic()
+                .authenticationEntryPoint(new NoPopupAuthenticationEntryPoint());
 
         http
                 .headers()
