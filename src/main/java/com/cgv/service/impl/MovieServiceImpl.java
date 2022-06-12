@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -43,7 +44,7 @@ public class MovieServiceImpl implements MovieService {
                         User::getGender,
                         Collectors.counting()));
 
-        Map<Integer, Long> ageGroupCount = users.stream()
+        Map<Integer, Long> ageGroupCountMap = users.stream()
                 .map(User::getBirth)
                 .map(DateUtil::getAge)
                 .map(age -> age / 10 * 10)
@@ -51,7 +52,22 @@ public class MovieServiceImpl implements MovieService {
                         Function.identity(),
                         Collectors.counting()));
 
-        return new TicketDistributionDto(users.size(), genderCount, ageGroupCount);
+        for (int i = 10; i <= 50; i += 10) {
+            ageGroupCountMap.putIfAbsent(i, 0L);
+        }
+
+        List<Map<String, Object>> ageGroupCountList = ageGroupCountMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry -> {
+                    Map<String, Object> map = new HashMap();
+                    map.put("ageGroup", entry.getKey() + "대");
+                    map.put("count", entry.getValue());
+                    return map;
+                })
+                .collect(Collectors.toList());
+
+        return new TicketDistributionDto(users.size(), genderCount, ageGroupCountList);
     }
 
     @Override
