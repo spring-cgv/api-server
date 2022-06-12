@@ -24,6 +24,44 @@ insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, 
 
 나쁜 놈들 잡는 데 국경 없다!
 통쾌하고 화끈한 범죄 소탕 작전이 다시 펼쳐진다!', '범죄도시 2');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (4, '톰 크루즈 ,  마일즈 텔러 ,  제니퍼 코넬리', '조셉 코신스키', '액션', '2022-06-22', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000082/82120/82120_1000.jpg', 'TWELVE', 130, '한순간의 실수도 용납되지 않는 하늘 위,
+가장 압도적인 비행이 시작된다!
+
+최고의 파일럿이자 전설적인 인물 매버릭(톰 크루즈)은 자신이 졸업한 훈련학교 교관으로 발탁된다.
+그의 명성을 모르던 팀원들은 매버릭의 지시를 무시하지만 실전을 방불케 하는 상공 훈련에서 눈으로 봐도 믿기 힘든 전설적인 조종 실력에 모두가 압도된다.
+
+매버릭의 지휘아래 견고한 팀워크를 쌓아가던 팀원들에게 국경을 뛰어넘는 위험한 임무가 주어지자
+매버릭은 자신이 가르친 동료들과 함께 마지막이 될 지 모를 하늘 위 비행에 나서는데', '탑건-매버릭');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (5, '송강호 ,  강동원 ,  배두나 ,  이지은 ,  이주영', '고레에다 히로카즈', '드라마', '2022-06-08', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85829/85829_1000.jpg', 'TWELVE', 129, '세탁소를 운영하지만 늘 빚에 시달리는 ‘상현’(송강호)과
+베이비 박스 시설에서 일하는 보육원 출신의 ‘동수’(강동원).
+거센 비가 내리는 어느 날 밤,
+그들은 베이비 박스에 놓인 한 아기를 몰래 데려간다.
+하지만 이튿날, 생각지 못하게 엄마 ‘소영’(이지은)이 아기 ‘우성’을 찾으러 돌아온다.
+아기가 사라진 것을 안 소영이 경찰에 신고하려 하자 솔직하게 털어놓는 두 사람.
+우성이를 잘 키울 적임자를 찾아 주기 위해서 그랬다는 변명이 기가 막히지만
+소영은 우성이의 새 부모를 찾는 여정에 상현, 동수와 함께하기로 한다.
+
+한편 이 모든 과정을 지켜본 형사 ‘수진’(배두나)과 후배 ‘이형사’(이주영).
+이들을 현행범으로 잡고 반 년째 이어온 수사를 마무리하기 위해 조용히 뒤를 쫓는다.
+
+베이비 박스,
+그곳에서 의도치 않게 만난 이들의
+예기치 못한 특별한 여정이 시작된다.', '브로커');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (6, '콜린 파렐 ,  조디 터너 스미스 ,  저스틴 H.민 ,  말레아 엠마 찬드로위자야', '코고나다', '드라마', '2022-06-01', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85884/85884_1000.jpg', 'ALL', 96, '함께 살던 안드로이드 인간 ‘양’이 어느 날 작동을 멈추자
+제이크 가족은 그를 수리할 방법을 찾는다.
+그러던 중, ‘양’에게서 특별한 메모리 뱅크를 발견하고
+그의 기억을 탐험하기 시작하는데…
+
+무엇을 남기고 싶었어, 양?', '애프터 양');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (7, '송강호, 김옥빈', '박찬욱', '호러, 드라마', '2017-07-27', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000079/79858/79858_1000.jpg', 'ONLY_ADULT', 147, '뱀파이어가 된 신부, 친구의 아내를 탐하다
+
+병원에서 근무하는 신부 ‘상현’은 죽어가는 환자들을 보고만 있어야 하는 자신의 무기력함에 괴로워 하다가 해외에서 비밀리에 진행되는 백신개발 실험에 자발적으로 참여한다. 그러나 실험 도중 바이러스 감염으로 죽음에 이르고, 정체불명의 피를 수혈 받아 기적적으로 소생한다. 하지만 그 피는 상현을 뱀파이어로 만들어버렸다. 피를 원하는 육체적 욕구와 살인을 원치 않는 신앙심의 충돌은 상현을 짓누르지만 피를 먹지 않고 그는 살 수가 없다. 하지만 살인하지 않고 사람의 피를 어떻게 구한단 말인가?
+ 기적적으로 생명을 건진 상현은 그가 기적을 일으킬 수 있다고 믿고 기도를 청하는 신봉자들 사이에서 어린 시절 친구 ‘강우’와 그의 아내 ‘태주’를 만나게 된다. 뱀파이어가 된 상현은 태주의 묘한 매력에 억누를 수 없는 욕망을 느낀다. 태주 또한 히스테리컬한 시어머니와 무능력한 남편에게 억눌렸던 욕망을 일깨워준 상현에게 집착하고 위험한 사랑에 빠져든다. 모든 것을 포기할 만큼 태주를 사랑하게 된 상현은 끝내 신부의 옷을 벗고 그녀의 세계로 들어 간다. 인간적 욕망의 기쁨이 이런 것이었던가. 이제 모든 쾌락을 갈구하게 된 상현은 신부라는 굴레를 벗어 던진다.
+ 점점 더 대담해져만 가는 상현과 태주의 사랑. 상현이 뱀파이어라는 사실을 알게 된 태주는 두려움에 거리를 두지만 그것도 잠시, 상현의 가공할 힘을 이용해 남편을 죽이자고 유혹한다. 사랑이란 이름으로 더욱 그를 조여오는 태주. 살인만은 피하고자 했던 상현은 결국 태주를 위해 강우를 죽이기 위한 그녀의 제안을 받아들이는데… 한치 앞을 알 수 없는 이들의 사랑, 과연 그 끝은 어떻게 될까.', '박쥐 확장판');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (8, '배우8', '감독8', '장르8', '2022-06-13', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000079/79858/79858_1000.jpg', 'ALL', 100, '줄거리...', '제목8');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (9, '배우9', '감독9', '장르9', '2022-06-13', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85977/85977_1000.jpg', 'ALL', 100, '줄거리...', '제목9');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (10, '배우10', '감독10', '장르10', '2022-06-13', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85715/85715_1000.jpg', 'ALL', 100, '줄거리...', '제목10');
+insert into MOVIES (MOVIE_ID, ACTOR, DIRECTOR, GENRE, OPENING_DATE, POSTER_URL, RATING, RUNNING_TIME, SYNOPSIS, TITLE) values (11, '배우11', '감독11', '장르11', '2022-06-13', 'https://img.cgv.co.kr/Movie/Thumbnail/Poster/000085/85871/85871_1000.jpg', 'ALL', 100, '줄거리...', '제목11');
 
 insert into SCREENS (SCREEN_ID, NAME) values (1, '1층 1관');
 insert into SCREENS (SCREEN_ID, NAME) values (2, '2층 2관');
