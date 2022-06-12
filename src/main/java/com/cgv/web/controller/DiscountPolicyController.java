@@ -39,17 +39,4 @@ public class DiscountPolicyController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PatchMapping("/{id}")
-    public ResponseEntity editDiscountPolicy(@PathVariable("id") Long discountPolicyId,
-                                             @RequestBody @Validated DiscountPolicyDto discountPolicyDto) {
-
-        try {
-            discountPolicyService.editDiscountPolicy(discountPolicyId, discountPolicyDto);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-    }
 }

@@ -38,8 +38,8 @@ public class DiscountPolicyServiceImpl implements DiscountPolicyService {
     }
 
     @Override
-    public void editDiscountPolicy(Long discountPolicyId, DiscountPolicyDto discountPolicyDto) {
-        DiscountPolicy discountPolicy = discountPolicyRepository.findById(discountPolicyId)
+    public void editDiscountPolicy(Long scheduleId, DiscountPolicyDto discountPolicyDto) {
+        DiscountPolicy discountPolicy = discountPolicyRepository.findByScheduleId(scheduleId)
                 .orElseThrow(NoSuchElementException::new);
 
         discountPolicy.setType(discountPolicyDto.getType());

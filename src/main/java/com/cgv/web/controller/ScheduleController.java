@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -38,6 +40,19 @@ public class ScheduleController {
         try {
             DiscountPolicyDto discountPolicyDto = discountPolicyService.findByScheduleId(scheduleId);
             return new ResponseEntity(discountPolicyDto, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/{id}/discount-policies")
+    public ResponseEntity editDiscountPolicy(@PathVariable("id") Long scheduleId,
+                                             @RequestBody @Validated DiscountPolicyDto discountPolicyDto) {
+
+        try {
+            discountPolicyService.editDiscountPolicy(scheduleId, discountPolicyDto);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
