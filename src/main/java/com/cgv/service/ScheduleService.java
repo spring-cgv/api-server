@@ -1,5 +1,6 @@
 package com.cgv.service;
 
+import com.cgv.domain.dto.ScheduleDto;
 import com.cgv.domain.dto.SeatDto;
 
 import java.time.LocalDate;
@@ -12,4 +13,6 @@ public interface ScheduleService {
     List<Map<String, Object>> findSchedulesByMovieIdOnDate(Long movieId, LocalDate screenDate);
 
     List<SeatDto> getSeatInfosByScheduleId(Long scheduleId);
+
+    ScheduleDto getScheduleById(Long scheduleId);
 }

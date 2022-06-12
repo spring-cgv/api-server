@@ -31,6 +31,7 @@ public class SecurityConfig {
             "/movies/*/schedules",
             "/movies/*/reviews",
             "/schedules",
+            "/schedules/*",
             "/schedules/*/seats",
             "/schedules/*/discount-policies"
     };

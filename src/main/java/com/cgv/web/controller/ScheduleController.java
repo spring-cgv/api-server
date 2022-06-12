@@ -1,6 +1,7 @@
 package com.cgv.web.controller;
 
 import com.cgv.domain.dto.DiscountPolicyDto;
+import com.cgv.domain.dto.ScheduleDto;
 import com.cgv.domain.dto.SeatDto;
 import com.cgv.service.DiscountPolicyService;
 import com.cgv.service.ScheduleService;
@@ -37,6 +38,16 @@ public class ScheduleController {
         try {
             DiscountPolicyDto discountPolicyDto = discountPolicyService.findByScheduleId(scheduleId);
             return new ResponseEntity(discountPolicyDto, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getSchedule(@PathVariable Long id) {
+        try {
+            ScheduleDto scheduleDto = scheduleService.getScheduleById(id);
+            return new ResponseEntity(scheduleDto, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

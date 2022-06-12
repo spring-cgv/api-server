@@ -1,5 +1,6 @@
 package com.cgv.service.impl;
 
+import com.cgv.domain.dto.ScheduleDto;
 import com.cgv.domain.dto.SeatDto;
 import com.cgv.domain.entity.Movie;
 import com.cgv.domain.entity.Schedule;
@@ -41,6 +42,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<SeatDto> getSeatInfosByScheduleId(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).get();
         return seatRepository.findDtosBySchedule(scheduleId, schedule.getScreen().getId());
+    }
+
+    @Override
+    public ScheduleDto getScheduleById(Long scheduleId) {
+        return scheduleRepository.findById(scheduleId)
+                .map(ScheduleDto::new)
+                .get();
     }
 
     public List<Map<String, Object>> createListFromSchedules(List<Schedule> schedules) {
