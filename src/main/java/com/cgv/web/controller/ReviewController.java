@@ -7,8 +7,6 @@ import com.cgv.service.LikeService;
 import com.cgv.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -16,7 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -26,13 +23,6 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final LikeService likeService;
-
-    @GetMapping("")
-    public List<ReviewDto> getReviewsByPage(@PageableDefault(size = 6) Pageable pageable,
-                                            @AuthenticationPrincipal CustomUser customUser) {
-
-        return reviewService.getReviewsByPage(pageable, customUser);
-    }
 
     @PostMapping("")
     public ResponseEntity saveReview(@RequestBody @Validated(ValidationGroup.WithId.class) ReviewDto reviewDto,

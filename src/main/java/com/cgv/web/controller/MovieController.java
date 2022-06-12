@@ -1,14 +1,19 @@
 package com.cgv.web.controller;
 
+import com.cgv.domain.CustomUser;
 import com.cgv.domain.dto.MovieDto;
+import com.cgv.domain.dto.ReviewDto;
 import com.cgv.domain.dto.TicketDistributionDto;
 import com.cgv.service.MovieService;
+import com.cgv.service.ReviewService;
 import com.cgv.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -24,6 +29,7 @@ public class MovieController {
 
     private final MovieService movieService;
     private final ScheduleService scheduleService;
+    private final ReviewService reviewService;
 
     @GetMapping("")
     public List<MovieDto> getMoviesOnCondition(@RequestParam(required = false) String titleKey,
@@ -65,6 +71,19 @@ public class MovieController {
         try {
             List<Map<String, Object>> scheduleInfos = scheduleService.findSchedulesByMovieIdOnDate(movieId, screenDate);
             return new ResponseEntity(scheduleInfos, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}/reviews")
+    public ResponseEntity getReviewsOnMovieByPage(@PathVariable("id") Long movieId,
+                                                   @PageableDefault(size = 6) Pageable pageable,
+                                                   @AuthenticationPrincipal CustomUser customUser) {
+
+        try {
+            List<ReviewDto> reviewDtos = reviewService.getReviewsOnMovieByPage(movieId, pageable, customUser);
+            return new ResponseEntity(reviewDtos, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

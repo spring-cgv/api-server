@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ReviewService {
-    List<ReviewDto> getReviewsByPage(Pageable pageable, CustomUser principalCustomUser);
+    List<ReviewDto> getReviewsOnMovieByPage(Long movieId, Pageable pageable, CustomUser principalCustomUser);
 
     void saveReview(ReviewDto reviewDto, String username);
 
