@@ -30,7 +30,7 @@ spring:
       path: /h2-console
 
 server:
-  port: 80
+  port: ${port:80}
 
   servlet:
     session:

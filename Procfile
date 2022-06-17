@@ -1,1 +1,1 @@
-web: java -jar build/libs/*.jar
+web: java -Dspring.server.port=80 $JAVA_OPTS -jar build/libs/*.jar
