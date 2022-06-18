@@ -81,7 +81,7 @@ public class CustomMovieRepositoryImpl implements CustomMovieRepository {
     }
 
     private JPQLQuery<Double> getReviewStarAvg() {
-        return JPAExpressions.select(qReview.star.avg())
+        return JPAExpressions.select(qReview.star.avg().coalesce(0.0))
                 .from(qReview)
                 .where(qReview.movie.eq(qMovie));
     }
